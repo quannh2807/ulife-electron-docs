@@ -16,6 +16,7 @@
   - [Cài Electron vào dự án React](#cài-electron-vào-dự-án-react)
   - [Chỉnh sửa file `package.json`](#chỉnh-sửa-file-packagejson)
   - [Khởi chạy](#khởi-chạy)
+- [UPDATE](#update)
 - [Build Electron](#build-electron)
 
 <div style="page-break-after: always;"></div>
@@ -208,38 +209,31 @@ Hoàn thành cấu hình Electron với ReactJS, việc còn lại là code dự
 
 <div style="page-break-after: always;"></div>
 
-# Build Electron
+# UPDATE
+Trên windows 10 khi run ``yarn dev`` sẽ xuất hiện lỗi ``'BROWSER' is not recognized as an internal or external``
 
-Cài đặt electron-builder
+==> Fix: sử dụng package `cross-env`
+
+- Cài đặt `cross-env` ở dev dependencies
+```
+yarn add --dev cross-env
+```
+- Sửa script dev trong `package.json`
 
 ```
-yarn add --dev electron-builder
-```
-
-Thêm script trong package.json
-
-```
-"script": {
-  ...
-  "pack": "electron-builder --dir",
-  "dist": "electron-builder"
+{
+  "scripts": {
+    ...
+    "dev": "concurrently -k \"cross-env yarn start BROWSER=none\" \"yarn electron\"",
+  },
 }
-
 ```
 
-Cài đặt lại react-scripts trong môi trường Dev
+- [Khởi chạy lần nữa](#khởi-chạy)
 
-```
-yarn remove react-scripts
-yarn add --dev react-scripts
-```
+<div style="page-break-after: always;"></div>
 
-Build
-
-```
-yarn dist
-```
-
+# Build Electron
 <div style="page-break-after: always;"></div>
 
 Tài liệu tham khảo
